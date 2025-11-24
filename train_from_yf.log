@@ -1,0 +1,5 @@
+2025-11-23 21:09:57,462 INFO: No --ticker provided; defaulting to 'AAPL'. To use another ticker, pass --ticker TICKER.
+2025-11-23 21:09:57,462 INFO: Fetching option data for AAPL...
+2025-11-23 21:10:01,593 INFO: Fetched 1192 option rows (before cleaning).
+2025-11-23 21:10:01,594 INFO: Prepared dataset: 1192 samples, 5 features -> ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol']
+2025-11-23 21:10:03,049 INFO: Training completed successfully.

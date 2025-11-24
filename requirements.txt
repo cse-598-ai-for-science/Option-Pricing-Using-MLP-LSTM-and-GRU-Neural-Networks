@@ -1,0 +1,8 @@
+# Minimal dependencies for running train_from_yf.py
+tensorflow
+yfinance
+pandas
+numpy
+scikit-learn
+arch
+
