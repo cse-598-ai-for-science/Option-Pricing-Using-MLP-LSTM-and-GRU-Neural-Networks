@@ -15,15 +15,24 @@ Quick start
    pip install -r requirements.txt
 
 3. Run a quick smoke run (example):
-
-   python train_from_yf.py --ticker AAPL --expirations 2 --epochs 5 --batch_size 16
-
-
-   For the model with alternative data (just epu):
    ```
-   python train_alt.py --ticker AAPL --expirations 2 --epochs 5 --batch_size 16 --epu_csv All_Daily_Policy_Data.csv 
+   python train_from_yf.py --ticker SPY --expirations 2 --epochs 100 --batch_size 16
    ```
 
+   For the model with alternative data with just epu as data source:
+   ```
+   python train_alt.py --ticker SPY --expirations 2 --epochs 100 --batch_size 16 --epu_csv All_Daily_Policy_Data.csv 
+   ```
+
+   For the model with alternative data with just stock news as data source:
+   ```
+   python train_alt.py --ticker SPY --expirations 2 --epochs 100 --batch_size 16 --sentiment_csv sp500_news_290k_articles_cleaned.csv
+   ```
+   
+   For both data sources of alternative data:
+   ```
+   python train_alt.py --ticker SPY --expirations 2 --epochs 100 --batch_size 16 --epu_csv All_Daily_Policy_Data.csv --sentiment_csv sp500_news_290k_articles_cleaned.csv
+   ```
 
 Notes
 - `data_loader.py` contains `yfinance_to_model_df` which maps Yahoo Finance option chain fields to the
