@@ -18,6 +18,13 @@ Quick start
 
    python train_from_yf.py --ticker AAPL --expirations 2 --epochs 5 --batch_size 16
 
+
+   For the model with alternative data (just epu):
+   ```
+   python train_alt.py --ticker AAPL --expirations 2 --epochs 5 --batch_size 16 --epu_csv All_Daily_Policy_Data.csv 
+   ```
+
+
 Notes
 - `data_loader.py` contains `yfinance_to_model_df` which maps Yahoo Finance option chain fields to the
   features expected by the model.
