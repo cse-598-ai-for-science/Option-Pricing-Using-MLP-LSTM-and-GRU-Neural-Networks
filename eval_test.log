@@ -1,0 +1,58 @@
+INFO:evaluate_data_sources:Loading EPU CSV from All_Daily_Policy_Data.csv
+INFO:evaluate_data_sources:Loading Sentiment CSV from sp500_news_290k_articles_cleaned.csv
+INFO:evaluate_data_sources:Running config: yf_only
+INFO:evaluate_data_sources:Prepared dataset for yf_only: 113 rows
+INFO:evaluate_data_sources:Samples after prepare_xy for yf_only: 113 (features: ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol'])
+INFO:evaluate_data_sources:Starting training for yf_only run 1 (seed=42)
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+[1m 1/11[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5s[0m 585ms/step - loss: 28.6614[1m11/11[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m1s[0m 8ms/step - loss: 40.5300 - val_loss: 48.5274
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 24ms/step
+INFO:evaluate_data_sources:Result [yf_only run 1]: RMSE=0.541382 MAE=0.537111
+INFO:evaluate_data_sources:Running config: epu
+INFO:evaluate_data_sources:Prepared dataset for epu: 113 rows
+-> Included feature: EPU
+INFO:evaluate_data_sources:Samples after prepare_xy for epu: 113 (features: ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol', 'EPU'])
+INFO:evaluate_data_sources:Starting training for epu run 1 (seed=42)
+-> Included feature: EPU
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+[1m 1/11[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m6s[0m 619ms/step - loss: 57.1170[1m11/11[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m1s[0m 8ms/step - loss: 40.4206 - val_loss: 52.4065
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step
+INFO:evaluate_data_sources:Result [epu run 1]: RMSE=0.602853 MAE=0.580645
+INFO:evaluate_data_sources:Running config: sentiment
+INFO:evaluate_data_sources:Prepared dataset for sentiment: 113 rows
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+INFO:evaluate_data_sources:Samples after prepare_xy for sentiment: 113 (features: ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol', 'pos', 'neu', 'neg'])
+INFO:evaluate_data_sources:Starting training for sentiment run 1 (seed=42)
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+[1m 1/11[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5s[0m 553ms/step - loss: 53.5220[1m11/11[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m1s[0m 8ms/step - loss: 37.7727 - val_loss: 48.8426
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 23ms/step
+INFO:evaluate_data_sources:Result [sentiment run 1]: RMSE=0.442137 MAE=0.431997
+INFO:evaluate_data_sources:Running config: both
+INFO:evaluate_data_sources:Prepared dataset for both: 113 rows
+-> Included feature: EPU
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+INFO:evaluate_data_sources:Samples after prepare_xy for both: 113 (features: ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol', 'EPU', 'pos', 'neu', 'neg'])
+INFO:evaluate_data_sources:Starting training for both run 1 (seed=42)
+-> Included feature: EPU
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+[1m 1/11[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5s[0m 547ms/step - loss: 56.7886[1m11/11[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m1s[0m 8ms/step - loss: 40.0876 - val_loss: 51.8985
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step
+INFO:evaluate_data_sources:Result [both run 1]: RMSE=0.585073 MAE=0.558457
+INFO:evaluate_data_sources:Aggregated results: {'yf_only': (0.5413824812088207, 0.5371107540102148), 'epu': (0.6028526059135413, 0.5806450843359575), 'sentiment': (0.44213734279993827, 0.43199698104179224), 'both': (0.5850728395595465, 0.5584567519182206)}
+INFO:evaluate_data_sources:Saved per-run metrics to evaluation_results_test/per_run_metrics.csv
+INFO:evaluate_data_sources:Saved RMSE plot to evaluation_results_test/rmse_by_data_source.png and MAE plot to evaluation_results_test/mae_by_data_source.png
+INFO:evaluate_data_sources:Done. Results directory: evaluation_results_test

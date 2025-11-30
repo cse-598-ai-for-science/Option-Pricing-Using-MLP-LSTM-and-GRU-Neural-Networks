@@ -1,5 +1,15 @@
-2025-11-23 21:09:57,462 INFO: No --ticker provided; defaulting to 'AAPL'. To use another ticker, pass --ticker TICKER.
-2025-11-23 21:09:57,462 INFO: Fetching option data for AAPL...
-2025-11-23 21:10:01,593 INFO: Fetched 1192 option rows (before cleaning).
-2025-11-23 21:10:01,594 INFO: Prepared dataset: 1192 samples, 5 features -> ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol']
-2025-11-23 21:10:03,049 INFO: Training completed successfully.
+2025-11-30 11:56:51,961 INFO: Python executable: /opt/anaconda3/envs/ai_for_science/bin/python3
+2025-11-30 11:56:51,962 INFO: Python version: 3.12.11
+2025-11-30 11:56:51,962 INFO: TensorFlow available: yes
+2025-11-30 11:56:51,962 INFO: Fetching option data for SPY...
+2025-11-30 11:56:53,750 INFO: Fetched 534 option rows (before cleaning).
+2025-11-30 11:56:53,751 INFO: Prepared dataset: 534 samples, 5 features -> ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol']
+2025-11-30 11:56:53,751 INFO: Fetch-only mode: prepared dataset; skipping model training.
+2025-11-30 11:56:53,754 INFO: 
+Dataframe head:
+  underlying_symbol  expiration      contractSymbol  Strike  underlying_stockprice  option_price  Volume  OpenInterest        IV  Maturity  Maturity_days  K_over_S  C_over_S  Monyness    r  cond_vol
+0               SPY  2025-12-01  SPY251201C00500000   500.0             683.390015        182.80     2.0           0.0  0.000010  0.003968              1  0.731647  0.267490  1.366780  0.0  0.195791
+1               SPY  2025-12-01  SPY251201C00510000   510.0             683.390015        155.65     NaN         166.0  0.000010  0.003968              1  0.746280  0.227762  1.339980  0.0  0.195791
+2               SPY  2025-12-01  SPY251201C00515000   515.0             683.390015        166.33     4.0           0.0  0.000010  0.003968              1  0.753596  0.243390  1.326971  0.0  0.195791
+3               SPY  2025-12-01  SPY251201C00520000   520.0             683.390015        145.81     NaN          12.0  0.021719  0.003968              1  0.760912  0.213363  1.314212  0.0  0.195791
+4               SPY  2025-12-01  SPY251201C00530000   530.0             683.390015        135.79     NaN          96.0  0.020454  0.003968              1  0.775545  0.198701  1.289415  0.0  0.195791

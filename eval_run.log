@@ -1,0 +1,40 @@
+INFO:evaluate_data_sources:Loading EPU CSV from All_Daily_Policy_Data.csv
+INFO:evaluate_data_sources:Loading Sentiment CSV from sp500_news_290k_articles_cleaned.csv
+INFO:evaluate_data_sources:Running config: yf_only
+INFO:evaluate_data_sources:Prepared dataset for yf_only: 68 rows
+WARNING:evaluate_data_sources:Failed experiment for yf_only (run 1): Not enough samples to train (found 0). Try increasing expirations or choose a more liquid ticker.
+INFO:evaluate_data_sources:Running config: epu
+INFO:evaluate_data_sources:Prepared dataset for epu: 68 rows
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+-> Included feature: EPU
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+-> Included feature: EPU
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 23ms/step
+INFO:evaluate_data_sources:Result [epu run 1]: RMSE=0.698880 MAE=0.655868
+INFO:evaluate_data_sources:Running config: sentiment
+INFO:evaluate_data_sources:Prepared dataset for sentiment: 68 rows
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+INFO:evaluate_data_sources:Result [sentiment run 1]: RMSE=0.663841 MAE=0.638588
+INFO:evaluate_data_sources:Running config: both
+INFO:evaluate_data_sources:Prepared dataset for both: 68 rows
+/opt/anaconda3/envs/ai_for_science/lib/python3.12/site-packages/keras/src/layers/core/dense.py:95: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:tensorflow:5 out of the last 15 calls to <function TensorFlowTrainer._make_function.<locals>.multi_step_on_iterator at 0x16a4819e0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 15 calls to <function TensorFlowTrainer._make_function.<locals>.multi_step_on_iterator at 0x16a4819e0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+-> Included feature: EPU
+-> Included feature: pos
+-> Included feature: neu
+-> Included feature: neg
+[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 22ms/step
+INFO:evaluate_data_sources:Result [both run 1]: RMSE=0.543195 MAE=0.513295
+INFO:evaluate_data_sources:Aggregated results: {'yf_only': (nan, nan), 'epu': (0.6988800876279857, 0.655867837204125), 'sentiment': (0.6638414243192048, 0.6385878410067584), 'both': (0.5431945551801725, 0.5132950613950686)}
+INFO:evaluate_data_sources:Saved RMSE plot to evaluation_results/rmse_by_data_source.png and MAE plot to evaluation_results/mae_by_data_source.png
+INFO:evaluate_data_sources:Done. Results directory: evaluation_results

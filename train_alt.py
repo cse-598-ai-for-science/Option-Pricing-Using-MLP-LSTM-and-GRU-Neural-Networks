@@ -62,13 +62,13 @@ def prepare_xy(df: pd.DataFrame, use_log_target: bool = True) -> Tuple[np.ndarra
     # Base features
     features = ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol']
     
-    # Dynamically add external features if they exist in the df
-    if 'EPU' in df.columns:
+    # Dynamically add external features only if they contain any non-NaN values
+    if 'EPU' in df.columns and df['EPU'].notna().any():
         features.append('EPU')
         print("-> Included feature: EPU")
         
     for col in ['pos', 'neu', 'neg']:
-        if col in df.columns:
+        if col in df.columns and df[col].notna().any():
             features.append(col)
             print(f"-> Included feature: {col}")
 
