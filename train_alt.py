@@ -24,8 +24,12 @@ try:
     import tensorflow as tf
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import Dense, LeakyReLU, ELU
+    from models.gated_mlp import build_gated_model
+    from models.base_mlp import build_base_mlp
 except Exception as e:
     tf = None
+    build_gated_model = None
+    build_base_mlp = None
 
 
 def build_dataset(ticker: str, expirations_limit: int = None, risk_free_rate: float = 0.0,
@@ -96,22 +100,29 @@ def prepare_xy(df: pd.DataFrame, use_log_target: bool = True) -> Tuple[np.ndarra
     return X, y, features
 
 
-def build_model(input_dim: int) -> 'tf.keras.Model':
-    """Builds a small MLP."""
-    model = Sequential()
-    model.add(Dense(30, input_dim=input_dim))
-    model.add(LeakyReLU())
-    model.add(Dense(60))
-    model.add(ELU())
-    model.add(Dense(90))
-    model.add(LeakyReLU())
-    model.add(Dense(1))
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    return model
+def build_model(input_dim: int, model_type: str = 'mlp', hidden_width: int = 64,
+                n_layers: int = 4) -> 'tf.keras.Model':
+    """
+    Builds a neural network model for option pricing.
+    
+    Args:
+        input_dim: Number of input features
+        model_type: 'mlp' for baseline or 'gated' for gated residual architecture
+        hidden_width: Width of hidden layers (gated model only)
+        n_layers: Number of residual blocks (gated model only)
+        
+    Returns:
+        Compiled Keras model
+    """
+    if model_type == 'gated':
+        return build_gated_model(input_dim, hidden_width=hidden_width, n_layers=n_layers)
+    else:
+        return build_base_mlp(input_dim)
 
 
 def train_and_evaluate(X: np.ndarray, y: np.ndarray, epochs: int = 20, batch_size: int = 32,
-                       test_size: float = 0.2, random_state: int = 42, verbose: int = 1):
+                       test_size: float = 0.2, random_state: int = 42, verbose: int = 1,
+                       model_type: str = 'mlp', hidden_width: int = 64, n_layers: int = 4):
     """Scale features, train model, and print evaluation metrics."""
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
 
@@ -119,7 +130,8 @@ def train_and_evaluate(X: np.ndarray, y: np.ndarray, epochs: int = 20, batch_siz
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    model = build_model(X_train.shape[1])
+    model = build_model(X_train.shape[1], model_type=model_type, hidden_width=hidden_width,
+                        n_layers=n_layers)
 
     history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, verbose=verbose,
                         validation_split=0.1)
@@ -152,6 +164,10 @@ def main(argv=None):
     parser.add_argument('--expirations', type=int, default=None, help='Limit number of expirations to fetch')
     parser.add_argument('--epochs', type=int, default=20, help='Training epochs')
     parser.add_argument('--batch_size', type=int, default=32, help='Training batch size')
+    parser.add_argument('--model', type=str, default='mlp', choices=['mlp', 'gated'],
+                        help='Model architecture: mlp (baseline) or gated (residual)')
+    parser.add_argument('--hidden_width', type=int, default=64, help='Hidden layer width (gated model)')
+    parser.add_argument('--n_layers', type=int, default=4, help='Number of residual blocks (gated model)')
     parser.add_argument('--risk_free_rate', type=float, default=0.0, help='Annual risk-free rate decimal')
     parser.add_argument('--use_garch', action='store_true', help='Compute conditional vol with GARCH')
     parser.add_argument('--verbose', action='store_true', help='Enable verbose progress output')
@@ -223,7 +239,9 @@ def main(argv=None):
         return
 
     try:
-        model, scaler, history = train_and_evaluate(X, y, epochs=args.epochs, batch_size=args.batch_size)
+        model, scaler, history = train_and_evaluate(X, y, epochs=args.epochs, batch_size=args.batch_size,
+                                                    model_type=args.model, hidden_width=args.hidden_width,
+                                                    n_layers=args.n_layers)
     except Exception:
         logger.exception('Error during training:')
         sys.exit(3)

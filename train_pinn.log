@@ -1,0 +1,196 @@
+2025-12-01 21:05:44,216 INFO: Fetching option data for SPY
+2025-12-01 21:05:44,987 INFO: Fetched 308 option rows
+2025-12-01 21:05:44,989 INFO: Prepared 308 samples with features: ['r', 'K_over_S', 'Maturity', 'IV', 'cond_vol']
+2025-12-01 21:05:44,989 INFO: Starting run 1/3 with seed=42
+2025-12-01 21:05:44,992 INFO: Training PINN model with physics_weight=10.0
+2025-12-01 21:05:44,992 INFO: Model: gated, hidden_width=64, n_layers=4
+2025-12-01 21:06:10,368 INFO: Run 1 complete: RMSE=0.006344, R2=0.9920
+2025-12-01 21:06:10,368 INFO: Starting run 2/3 with seed=43
+2025-12-01 21:06:10,388 INFO: Training PINN model with physics_weight=10.0
+2025-12-01 21:06:10,388 INFO: Model: gated, hidden_width=64, n_layers=4
+2025-12-01 21:06:13,034 ERROR: Run 2 failed: in user code:
+
+    File "/content/train_pinn.py", line 369, in train_step  *
+        optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients  **
+        self.apply(grads, trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+        self.build(trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+        self._momentums, self._velocities = self.add_optimizer_variables(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+        self.add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+        return super().add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+        return self.add_variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+        variable = backend.Variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+        self._initialize_with_initializer(initializer)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+        self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+        self._value = tf.Variable(
+
+    ValueError: tf.function only supports singleton tf.Variables created on the first call. Make sure the tf.Variable is only created once or created outside tf.function. See https://www.tensorflow.org/guide/function#creating_tfvariables for more information.
+Traceback (most recent call last):
+  File "/content/train_pinn.py", line 683, in main
+    model, history = train_pinn(
+                     ^^^^^^^^^^^
+  File "/content/train_pinn.py", line 467, in train_pinn
+    total_loss, data_loss, physics_loss = train_step(
+                                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/tensorflow/python/util/traceback_utils.py", line 153, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/tmp/__autograph_generated_filemieuso_t.py", line 49, in tf__train_step
+    ag__.converted_call(ag__.ld(optimizer).apply_gradients, (ag__.converted_call(ag__.ld(zip), (ag__.ld(gradients), ag__.ld(model).trainable_variables), None, fscope),), None, fscope)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients
+    self.apply(grads, trainable_variables)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+    self.build(trainable_variables)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+    self._momentums, self._velocities = self.add_optimizer_variables(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+    self.add_variable_from_reference(
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+    return super().add_variable_from_reference(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+    return self.add_variable(
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+    variable = backend.Variable(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+    self._initialize_with_initializer(initializer)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+    self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+    self._value = tf.Variable(
+                  ^^^^^^^^^^^^
+ValueError: in user code:
+
+    File "/content/train_pinn.py", line 369, in train_step  *
+        optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients  **
+        self.apply(grads, trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+        self.build(trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+        self._momentums, self._velocities = self.add_optimizer_variables(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+        self.add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+        return super().add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+        return self.add_variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+        variable = backend.Variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+        self._initialize_with_initializer(initializer)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+        self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+        self._value = tf.Variable(
+
+    ValueError: tf.function only supports singleton tf.Variables created on the first call. Make sure the tf.Variable is only created once or created outside tf.function. See https://www.tensorflow.org/guide/function#creating_tfvariables for more information.
+
+2025-12-01 21:06:13,035 INFO: Starting run 3/3 with seed=44
+2025-12-01 21:06:13,040 INFO: Training PINN model with physics_weight=10.0
+2025-12-01 21:06:13,040 INFO: Model: gated, hidden_width=64, n_layers=4
+2025-12-01 21:06:15,955 ERROR: Run 3 failed: in user code:
+
+    File "/content/train_pinn.py", line 369, in train_step  *
+        optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients  **
+        self.apply(grads, trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+        self.build(trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+        self._momentums, self._velocities = self.add_optimizer_variables(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+        self.add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+        return super().add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+        return self.add_variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+        variable = backend.Variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+        self._initialize_with_initializer(initializer)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+        self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+        self._value = tf.Variable(
+
+    ValueError: tf.function only supports singleton tf.Variables created on the first call. Make sure the tf.Variable is only created once or created outside tf.function. See https://www.tensorflow.org/guide/function#creating_tfvariables for more information.
+Traceback (most recent call last):
+  File "/content/train_pinn.py", line 683, in main
+    model, history = train_pinn(
+                     ^^^^^^^^^^^
+  File "/content/train_pinn.py", line 467, in train_pinn
+    total_loss, data_loss, physics_loss = train_step(
+                                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/tensorflow/python/util/traceback_utils.py", line 153, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/tmp/__autograph_generated_filemieuso_t.py", line 49, in tf__train_step
+    ag__.converted_call(ag__.ld(optimizer).apply_gradients, (ag__.converted_call(ag__.ld(zip), (ag__.ld(gradients), ag__.ld(model).trainable_variables), None, fscope),), None, fscope)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients
+    self.apply(grads, trainable_variables)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+    self.build(trainable_variables)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+    self._momentums, self._velocities = self.add_optimizer_variables(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+    self.add_variable_from_reference(
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+    return super().add_variable_from_reference(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+    return self.add_variable(
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+    variable = backend.Variable(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+    self._initialize_with_initializer(initializer)
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+    self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+  File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+    self._value = tf.Variable(
+                  ^^^^^^^^^^^^
+ValueError: in user code:
+
+    File "/content/train_pinn.py", line 369, in train_step  *
+        optimizer.apply_gradients(zip(gradients, model.trainable_variables))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 463, in apply_gradients  **
+        self.apply(grads, trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 502, in apply
+        self.build(trainable_variables)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/adam.py", line 93, in build
+        self._momentums, self._velocities = self.add_optimizer_variables(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 390, in add_optimizer_variables
+        self.add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/optimizer.py", line 35, in add_variable_from_reference
+        return super().add_variable_from_reference(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 320, in add_variable_from_reference
+        return self.add_variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/optimizers/base_optimizer.py", line 274, in add_variable
+        variable = backend.Variable(
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/common/variables.py", line 206, in __init__
+        self._initialize_with_initializer(initializer)
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 52, in _initialize_with_initializer
+        self._initialize(lambda: initializer(self._shape, dtype=self._dtype))
+    File "/usr/local/lib/python3.12/dist-packages/keras/src/backend/tensorflow/core.py", line 42, in _initialize
+        self._value = tf.Variable(
+
+    ValueError: tf.function only supports singleton tf.Variables created on the first call. Make sure the tf.Variable is only created once or created outside tf.function. See https://www.tensorflow.org/guide/function#creating_tfvariables for more information.
+
+2025-12-01 21:06:15,963 INFO: Saved per-run metrics to evaluation_results/physics-informed-training/per_run_metrics.csv
+2025-12-01 21:06:15,966 INFO: Saved aggregated metrics to evaluation_results/physics-informed-training/aggregated_metrics.csv
+2025-12-01 21:06:16,896 INFO: Generated charts in evaluation_results/physics-informed-training
+2025-12-01 21:06:16,896 INFO: Training completed successfully
+2025-12-01 21:06:16,896 INFO: Training completed successfully
